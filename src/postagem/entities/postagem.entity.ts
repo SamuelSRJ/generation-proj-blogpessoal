@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 import {
   Column,
@@ -16,22 +17,27 @@ export class Postagem {
 
   @IsNotEmpty()
   @Column({ length: 100, nullable: false })
+  @ApiProperty()
   titulo: string;
 
   @IsNotEmpty()
   @Column({ length: 1000, nullable: false })
+  @ApiProperty()
   texto: string;
 
   @UpdateDateColumn()
+  @ApiProperty()
   data: Date;
 
   @ManyToOne(() => Tema, (tema) => tema.postagem, {
     onDelete: 'CASCADE',
   })
+  @ApiProperty({ type: () => Tema })
   tema: Tema;
 
   @ManyToOne(() => Usuario, (usuario) => usuario.postagem, {
     onDelete: 'CASCADE',
   })
+  @ApiProperty({ type: () => Tema })
   usuario: Usuario;
 }
